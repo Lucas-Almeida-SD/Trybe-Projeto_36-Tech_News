@@ -1,6 +1,7 @@
 import requests
 import time
 from parsel import Selector
+import re
 
 
 # Requisito 1
@@ -25,7 +26,7 @@ def fetch(url):
 def scrape_novidades(html_content):
     selector = Selector(text=html_content)
 
-    news_link_list = selector.css('.entry-title a::attr(href)').getall()
+    news_link_list = selector.css(".entry-title a::attr(href)").getall()
 
     return news_link_list
 
@@ -34,14 +35,47 @@ def scrape_novidades(html_content):
 def scrape_next_page_link(html_content):
     selector = Selector(text=html_content)
 
-    next_page_link = selector.css('.next.page-numbers::attr(href)').get()
+    next_page_link = selector.css(".next.page-numbers::attr(href)").get()
 
     return next_page_link
 
 
 # Requisito 4
 def scrape_noticia(html_content):
-    """Seu código deve vir aqui"""
+    selector = Selector(text=html_content)
+
+    url_selector = "//link[@rel='canonical']/@href"
+    title_selector = "h1.entry-title::text"
+    timestamp_selector = ".entry-header-inner .post-meta .meta-date::text"
+    writer_selector = (
+        ".entry-header-inner .post-meta .meta-author  .author a::text"
+    )
+    comments_count_selector = ".comment"
+    summary_selector = ".cs-container .entry-content p"
+    tags_selector = ".post-tags a::text"
+    category_selector = ".entry-details .meta-category .label::text"
+
+    url = selector.xpath(url_selector).get()
+    title = selector.css(title_selector).get()
+    timestamp = selector.css(timestamp_selector).get()
+    writer = selector.css(writer_selector).get()
+    comments_count = len(selector.css(comments_count_selector).getall())
+    summary = selector.css(summary_selector).get()
+    tags = selector.css(tags_selector).getall()
+    category = selector.css(category_selector).get()
+
+    summary_regex = r'<(?:\"[^\"]*\"["\"]*|"[^"]*"["\"]*|[^"\">])+>'
+
+    return {
+        "url": url,
+        "title": title.strip(),
+        "timestamp": timestamp,
+        "writer": writer,
+        "comments_count": comments_count,
+        "summary": ''.join(re.split(summary_regex, summary)).strip(),
+        "tags": tags,
+        "category": category,
+    }
 
 
 # Requisito 5
