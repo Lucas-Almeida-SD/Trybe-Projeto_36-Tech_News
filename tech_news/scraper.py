@@ -65,15 +65,13 @@ def scrape_noticia(html_content):
     tags = selector.css(tags_selector).getall()
     category = selector.css(category_selector).get()
 
-    summary_regex = r'<(?:\"[^\"]*\"["\"]*|"[^"]*"["\"]*|[^"\">])+>'
-
     return {
         "url": url,
         "title": title.strip(),
         "timestamp": timestamp,
         "writer": writer,
         "comments_count": comments_count,
-        "summary": ''.join(re.split(summary_regex, summary)).strip(),
+        "summary": ''.join(re.split(r'<.*?>', summary)).strip(),
         "tags": tags,
         "category": category,
     }
