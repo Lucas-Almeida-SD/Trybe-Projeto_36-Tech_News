@@ -3,14 +3,17 @@ import re
 from datetime import datetime
 
 
+def generate_news_tuple(news_list):
+    return [(news["title"], news["url"]) for news in news_list]
+
+
 # Requisito 6
 def search_by_title(title):
     news_list = search_news(
         {"title": {"$regex": re.compile(f"{title}", re.IGNORECASE)}}
     )
-    news_tuple = [(news["title"], news["url"]) for news in news_list]
 
-    return news_tuple
+    return generate_news_tuple(news_list)
 
 
 # Requisito 7
@@ -26,9 +29,8 @@ def search_by_date(date):
         raise ValueError("Data inválida")
 
     news_list = search_news({"timestamp": "/".join(splited_date[::-1])})
-    news_tuple = [(news["title"], news["url"]) for news in news_list]
 
-    return news_tuple
+    return generate_news_tuple(news_list)
 
 
 # Requisito 8
@@ -41,11 +43,13 @@ def search_by_tag(tag):
         }
     )
 
-    news_tuple = [(news["title"], news["url"]) for news in news_list]
-
-    return news_tuple
+    return generate_news_tuple(news_list)
 
 
 # Requisito 9
 def search_by_category(category):
-    """Seu código deve vir aqui"""
+    news_list = search_news(
+        {"category": {"$regex": re.compile(f"{category}", re.IGNORECASE)}}
+    )
+
+    return generate_news_tuple(news_list)
