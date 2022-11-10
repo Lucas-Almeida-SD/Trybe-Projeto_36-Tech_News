@@ -35,7 +35,7 @@ def analyzer_menu():
         " 4 - Buscar notícias por categoria;\n"
         " 5 - Listar top 5 notícias;\n"
         " 6 - Listar top 5 categorias;\n"
-        " 7 - Sair."
+        " 7 - Sair.\n"
     )
 
     try:
