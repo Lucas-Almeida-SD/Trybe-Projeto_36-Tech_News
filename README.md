@@ -2,7 +2,7 @@
 
 Esse projeto foi realizado para exercitar o que foi aprendido na Seção 3 do Módulo de Ciência da Computação do curso da [Trybe](https://www.betrybe.com/), no qual foi sobre `Arquitetura de Redes` e `Raspagem de Dados` utilizando a linguagem de programação `Python`.
 
-Neste projeto foi desenvolvido um `web scraper` para fazer a raspagem de dados de notícias encontradas no [blog da Trybe](https://blog.betrybe.com/) para assim armazenar tais dados em um banco de dados utilizando o SGDB `MongoDB`.
+Neste projeto foi desenvolvido um `web scraper` para fazer a raspagem de dados de notícias encontradas no [blog da Trybe](https://blog.betrybe.com/) para assim armazenar tais dados em um banco de dados utilizando o SGBD `MongoDB`.
 
 ## Tecnologias
 
@@ -54,7 +54,7 @@ Para iniciá-lo, siga os passos abaixo:
 <details>
   <summary><strong>Sem Docker</strong></summary>
 
-  Aqui será necessário possuir o SGDB __MongoDB__ instalado em sua máquina e rodando na porta `27017`.
+  Aqui será necessário possuir o SGBD __MongoDB__ instalado em sua máquina e rodando na porta `27017`.
 
   ```bash
   # criar o ambiente virtual
